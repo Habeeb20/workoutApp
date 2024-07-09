@@ -15,6 +15,10 @@ const workout = require('./route/workout')
 const userWorkout = require('./route/user')
 const corsOptions = require('./config/corsOptions')
 
+const __dirname = path.resolve()
+
+
+
 
 // app.use(cors(corsOptions))
 
@@ -24,14 +28,18 @@ app.use(cors())
 // app.use(loggers)
 // const __dirname  = path.resolve()
 app.use(express.static('public'))
-app.use(express.static(path.join(__dirname, '/client1/dist')))
-app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname, 'client1', 'dist', 'index.html'))
-})
+
 app.use("/api/workout", workout)
 app.use("/api/user", userWorkout)
 
 
+
+app.use(express.static(path.join(__dirname, '/client1/dist')))
+
+
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, 'client1', 'build', 'index.html'))
+})
 
 
 
